@@ -1,4 +1,5 @@
 <script lang="ts">
+import BotaoPrincipal from './BotaoPrincipal.vue';
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
 import SuaLista from './SuaLista.vue';
 import Tag from './Tag.vue'
@@ -8,10 +9,13 @@ export default {
           ingredientes: [] as string[]
         };
     },
-    components: { SelecionarIngredientes, Tag, SuaLista },
+    components: { SelecionarIngredientes, Tag, SuaLista, BotaoPrincipal },
     methods:{
       adicionarIngrediente(ingrediente: string){
         this.ingredientes.push(ingrediente)
+      },
+      removerIngrediente(ingrediente: string) {
+      this.ingredientes = this.ingredientes.filter(iLista => ingrediente !== iLista);
       }
     }
 }
@@ -21,8 +25,11 @@ export default {
     <main class="conteudo-principal">
        <SuaLista :ingredientes="ingredientes" />
 
-        <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente"/>
-        
+        <SelecionarIngredientes 
+        @adicionar-ingrediente="adicionarIngrediente" 
+        @remover-ingrediente="removerIngrediente" 
+        />
+        <BotaoPrincipal texto="Buscar Receitas!"/>
     </main>
 </template>
 
